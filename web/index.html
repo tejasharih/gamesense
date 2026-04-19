@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GameSense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="background-grid"></div>
+    <main class="page-shell">
+      <section class="masthead">
+        <div class="masthead-left">
+          <span class="masthead-tag">GameSense Matchweek</span>
+          <span class="masthead-meta">Film Room</span>
+        </div>
+        <div class="masthead-center">Built on real NBA history, not synthetic gloss</div>
+        <div class="masthead-right">
+          <span>Board No. 01</span>
+          <span>Scout Report</span>
+        </div>
+      </section>
+
+      <section class="hero-panel">
+        <div class="hero-copy">
+          <p class="eyebrow">NFL + NBA MATCHUP INTELLIGENCE</p>
+          <h1>GameSense</h1>
+          <p class="hero-deck">Part betting board, part film room, part scouting report.</p>
+          <p class="hero-text">
+            A matchup intelligence desk for fans who want more than a hot take. Compare signals,
+            inspect what moves the edge, and pressure-test a forecast with real game context.
+          </p>
+          <div class="hero-notes">
+            <span>Pregame Board</span>
+            <span>Film Notes</span>
+            <span>Signal Split</span>
+            <span>Pressure Test</span>
+          </div>
+        </div>
+        <div class="hero-scoreboard">
+          <div class="scoreboard-header">
+            <span>Live Model Snapshot</span>
+            <span id="heroConfidence">Loading...</span>
+          </div>
+          <div class="hero-badges">
+            <div class="team-token" id="awayToken">AWY</div>
+            <div class="versus-pill">VS</div>
+            <div class="team-token home-token" id="homeToken">HME</div>
+          </div>
+          <div class="matchup-row">
+            <div>
+              <p class="team-label" id="heroAway">AWAY</p>
+              <p class="team-name">Road Team</p>
+            </div>
+            <div class="hero-meta" id="heroMeta">Model loading</div>
+            <div class="team-right">
+              <p class="team-label" id="heroHome">HOME</p>
+              <p class="team-name">Home Team</p>
+            </div>
+          </div>
+          <div class="probability-track">
+            <div class="probability-fill" id="probabilityFill"></div>
+          </div>
+          <div class="probability-row">
+            <span id="awayProbability">0%</span>
+            <span id="homeProbability">0%</span>
+          </div>
+          <div class="hero-substats" id="heroSubstats"></div>
+        </div>
+      </section>
+
+      <section class="summary-ribbon" id="summaryRibbon"></section>
+
+      <section class="dashboard-grid">
+        <article class="panel builder-panel">
+          <div class="panel-header">
+            <h2>Matchup Builder</h2>
+            <span>Search teams and build a case</span>
+          </div>
+          <div class="builder-help">
+            Pick an away team and home team, build the matchup, then use the prediction, team profile,
+            and driver panels to understand where the edge comes from.
+          </div>
+          <div class="builder-grid">
+            <label class="builder-field">
+              <span>Away team</span>
+              <input id="awaySearch" type="text" placeholder="Type team abbreviation or name" autocomplete="off" />
+              <div class="team-suggestions" id="awaySuggestions"></div>
+            </label>
+            <label class="builder-field">
+              <span>Home team</span>
+              <input id="homeSearch" type="text" placeholder="Type team abbreviation or name" autocomplete="off" />
+              <div class="team-suggestions" id="homeSuggestions"></div>
+            </label>
+            <button id="buildMatchupButton" class="build-button">Build Matchup</button>
+          </div>
+          <div class="builder-status" id="builderStatus">Choose two teams to generate a matchup.</div>
+          <div class="team-board-grid">
+            <div class="team-board-block">
+              <div class="team-board-header">
+                <strong>Set Away Team</strong>
+                <span>Click any team</span>
+              </div>
+              <div class="team-board" id="awayTeamBoard"></div>
+            </div>
+            <div class="team-board-block">
+              <div class="team-board-header">
+                <strong>Set Home Team</strong>
+                <span>Click any team</span>
+              </div>
+              <div class="team-board" id="homeTeamBoard"></div>
+            </div>
+          </div>
+          <div class="quick-picks" id="quickPicks"></div>
+        </article>
+
+        <article class="panel metric-panel">
+          <div class="panel-header">
+            <h2>Backtest</h2>
+            <span id="dataSourceLabel">Training profile</span>
+          </div>
+          <div class="metric-cards" id="metricCards"></div>
+        </article>
+
+        <article class="panel presets-panel">
+          <div class="panel-header">
+            <h2>Matchup Board</h2>
+            <span id="presetLabel">Quick presets</span>
+          </div>
+          <div class="preset-grid" id="presetGrid"></div>
+        </article>
+
+        <article class="panel insight-panel">
+          <div class="panel-header">
+            <h2>Matchup Profile</h2>
+            <span id="insightLabel">Selected game context</span>
+          </div>
+          <div class="team-compare" id="teamCompare"></div>
+          <div class="compare-chart" id="compareChart"></div>
+          <div class="narrative-card" id="narrativeCard"></div>
+        </article>
+
+        <article class="panel control-panel">
+          <div class="panel-header">
+            <h2>Signal Tuning</h2>
+            <span>Adjust the edge</span>
+          </div>
+          <div class="league-toggle">
+            <button class="toggle active" data-league="NBA">NBA</button>
+            <button class="toggle" data-league="NFL">NFL</button>
+          </div>
+          <form id="controlForm" class="control-form"></form>
+          <button id="predictButton" class="predict-button">Run Prediction</button>
+        </article>
+
+        <article class="panel factors-panel">
+          <div class="panel-header">
+            <h2>Top Drivers</h2>
+            <span>What moved the model</span>
+          </div>
+          <div id="factorList" class="factor-list"></div>
+        </article>
+
+        <article class="panel tape-panel">
+          <div class="panel-header">
+            <h2>Recent Tape</h2>
+            <span id="tapeLabel">Recent slate</span>
+          </div>
+          <div id="matchupTape" class="matchup-tape"></div>
+        </article>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
