@@ -11,7 +11,7 @@ GameSense is a sports matchup intelligence platform focused on explainable NBA a
 ## Why this project exists
 Sports data is scattered across schedules, standings, injury notes, and box scores. GameSense turns that noise into a single decision layer that answers two questions clearly: who has the edge, and why?
 
-## Why it is resume-ready
+## Why it stands out
 - Uses real NBA historical data from BALLDONTLIE, not only toy examples
 - Benchmarks against a naive home-team baseline
 - Includes an end-to-end product surface, not just a notebook or script
